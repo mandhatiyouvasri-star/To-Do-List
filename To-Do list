@@ -1,0 +1,83 @@
+# ============================
+# TO-DO LIST PROJECT
+# DecodeLabs - Project 1
+# ============================
+
+tasks = []
+
+while True:
+    print("\n========== TO-DO LIST ==========")
+    print("1. Add Task")
+    print("2. View Tasks")
+    print("3. Mark Task as Completed")
+    print("4. Delete Task")
+    print("5. Exit")
+
+    choice = input("Enter your choice (1-5): ")
+
+    if choice == "1":
+        task_name = input("Enter task: ")
+
+        task = {
+            "id": len(tasks) + 1,
+            "task": task_name,
+            "status": "Pending"
+        }
+
+        tasks.append(task)
+        print("✅ Task added successfully!")
+
+    elif choice == "2":
+        if len(tasks) == 0:
+            print("\nNo tasks available.")
+        else:
+            print("\n------ YOUR TASKS ------")
+            for task in tasks:
+                print(
+                    f"{task['id']}. {task['task']} - {task['status']}"
+                )
+
+    elif choice == "3":
+        if len(tasks) == 0:
+            print("No tasks to update.")
+        else:
+            task_id = int(input("Enter Task ID to mark completed: "))
+
+            found = False
+            for task in tasks:
+                if task["id"] == task_id:
+                    task["status"] = "Completed"
+                    found = True
+                    print("✅ Task marked as completed.")
+                    break
+
+            if not found:
+                print("❌ Task ID not found.")
+
+    elif choice == "4":
+        if len(tasks) == 0:
+            print("No tasks to delete.")
+        else:
+            task_id = int(input("Enter Task ID to delete: "))
+
+            found = False
+            for task in tasks:
+                if task["id"] == task_id:
+                    tasks.remove(task)
+                    found = True
+                    print("🗑️ Task deleted.")
+                    break
+
+            if not found:
+                print("❌ Task ID not found.")
+
+            # Reassign IDs
+            for i in range(len(tasks)):
+                tasks[i]["id"] = i + 1
+
+    elif choice == "5":
+        print("\nThank you for using the To-Do List!")
+        break
+
+    else:
+        print("❌ Invalid choice. Please try again.")
